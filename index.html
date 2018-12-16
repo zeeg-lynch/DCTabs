@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>DC Tabs</title>
+	<style type="text/css">
+		*{
+			margin:2px;
+		}
+		#app{
+			width:100%;height:auto;display:flex;height:100%;
+		}
+		.li {
+			margin:5px;
+			border-color: gray;
+			border-radius: 2px;
+			border: 1px;
+			color:red;
+		}
+		.list {
+			/*background-color: red;*/
+			width:20%;
+			float: left;			
+			outline: solid 1px #000000;
+			margin: 2px;
+			padding: 5px;
+			height:100%;
+		}
+		.frame {
+			/*background-color: blue;*/
+			width:80%;
+			outline: solid 1px #000000;	
+			height:1000px;
+			margin: 2px;
+		}
+	</style>
+</head>
+<body>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<div id = "app">	
+		<div class = "list">
+			<ul>			
+				<li v-for="tab in tabs">
+					<button :id="tab.name+'_checked'" v-on:click="setChecked($event)">{{(checked_id === tab.name+'_checked'?"Save":"Edit")}}</button>
+					<span v-on:click="updateSelectedLink(tab.link)">{{ tab.name }}</a>
+					<div v-show="checked_id === tab.name+'_checked'">
+						Name: <input v-model="tab.name">
+						<br>
+						Link: <input v-model="tab.link">
+						<br>
+						<button v-on:click="removeTab(tab)">Remove</button>
+					</div>
+				</li>			
+			</ul>
+			<br>
+			<button v-on:click="addTab()">Add</button>
+			<br>
+			<div v-show="addActive">
+				<input placeholder="name" v-model="newTabName">
+				<input placeholder="link" v-model="newTabLink">
+			</div>
+			<button v-on:click="exportTabs()">{{(exportedTabsIsNull?"Export":"Unexport")}}</button>
+			<br>
+			<textarea v-show="!exportedTabsIsNull" v-model="exportedTabs"></textarea>
+		</div>
+		<div class = "frame">
+			<iframe :src="selectedLink" width="100%" height="100%"></iframe>	
+		</div>	
+	</div>	
+	<script src="js/main.js"></script>
+</body>
+
+</html>
