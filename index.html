@@ -52,7 +52,7 @@
 				</li>			
 			</ul>
 			<br>
-			<button v-on:click="addTab()">Add</button>
+			<button v-on:click="addTab()">{{addActive?"Save":"Add"}}</button>
 			<br>
 			<div v-show="addActive">
 				<input placeholder="name" v-model="newTabName">
