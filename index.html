@@ -32,6 +32,12 @@
 			height:1000px;
 			margin: 2px;
 		}
+		.borederedContainer{
+			border: 4px double black;
+			/*border-color: #000000;*/
+			border-radius: 5px;			
+			/*background-color: red;	*/
+		}
 	</style>
 </head>
 <body>
@@ -52,11 +58,13 @@
 				</li>			
 			</ul>
 			<br>
-			<button v-on:click="addTab()">{{addActive?"Save":"Add"}}</button>
-			<br>
-			<div v-show="addActive">
-				<input placeholder="name" v-model="newTabName">
-				<input placeholder="link" v-model="newTabLink">
+			<div class="borederedContainer">
+				<button v-on:click="addTab()">{{addActive?"Save":"Add"}}</button>
+				<br>
+				<div v-show="addActive">
+					<input placeholder="name" v-model="newTabName">
+					<input placeholder="link" v-model="newTabLink">
+				</div>
 			</div>
 			<button v-on:click="exportTabs()">{{(exportedTabsIsNull?"Export":"Unexport")}}</button>
 			<br>
