@@ -36,12 +36,14 @@ new Vue({
 	methods: {
 		updateSelectedLink(link) {
 			console.log("updateSelectedLink invoked. Link is " + link);
-			this.selectedLink = link;
+			if (link!="") {
+				this.selectedLink = link;
+			}
 			console.log("selectedLink is " + this.selectedLink);
 		},
 
 		addTab: function() {			
-			if (this.newTabName!="" && this.newTabLink!="") {
+			if (this.newTabName!="") {
 				this.tabs.push({name:this.newTabName,link:this.newTabLink});
 				this.newTabName="";
 				this.newTabLink="";
