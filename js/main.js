@@ -12,6 +12,7 @@ new Vue({
 		exportedTabs: "",
 		checked_id: "",
 		addActive: false,
+		exportFieldIsVisible: false
 	},
 	mounted() {
 	    if (localStorage.tabs) {
@@ -54,12 +55,18 @@ new Vue({
 
 		exportTabs: function() {
 			console.log("EXPORT: " + this.exportedTabs);
-			if (this.exportedTabs==="") {
-				this.exportedTabs = JSON.stringify(this.tabs);				
+			this.exportedTabs = JSON.stringify(this.tabs);				
+			this.exportFieldIsVisible=true;
+		},
+
+		importTabs: function() {
+			if (this.exportedTabs!="") {
+				this.tabs = JSON.parse(this.exportedTabs);
 			}
-			else {
-				this.exportedTabs="";
-			}
+		},
+
+		toggleExportVisibility() {
+			this.exportFieldIsVisible=!this.exportFieldIsVisible
 		},
 
 		setChecked: function(e) {
