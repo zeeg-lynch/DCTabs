@@ -70,11 +70,36 @@ new Vue({
 			}
 			else {
 				this.checked_id = '';
+				localStorage.tabs = JSON.stringify(this.tabs);
 			}
 		},
 
 		removeTab: function(tab) {
 			this.tabs.splice(this.tabs.indexOf(tab));
+		},
+
+		moveUp: function(tab) {
+			var index = this.tabs.indexOf(tab);
+			if (index===0) {
+				return;
+			}
+			else {
+				var tmp = this.tabs[index];
+				this.tabs[index] = this.tabs[index-1];
+				this.tabs[index-1] = tmp;
+			}
+		},
+
+		moveDown: function(tab) {
+			var index = this.tabs.indexOf(tab);
+			if (index===this.tabs.length-1) {
+				return;
+			}
+			else {
+				var tmp = this.tabs[index];
+				this.tabs[index] = this.tabs[index+1];
+				this.tabs[index+1] = tmp;
+			}
 		}
 
 

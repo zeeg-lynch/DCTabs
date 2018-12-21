@@ -32,11 +32,17 @@
 			height:1000px;
 			margin: 2px;
 		}
-		.borederedContainer{
+		.borderedContainer {
 			border: 4px double black;
 			/*border-color: #000000;*/
 			border-radius: 5px;			
 			/*background-color: red;	*/
+		}
+		.link {
+			text-decoration: underline;
+		}
+		.emptylink {
+
 		}
 	</style>
 </head>
@@ -47,18 +53,20 @@
 			<ul>			
 				<li v-for="tab in tabs">
 					<button :id="tab.name+'_checked'" v-on:click="setChecked($event)">{{(checked_id === tab.name+'_checked'?"Save":"Edit")}}</button>
-					<span v-on:click="updateSelectedLink(tab.link)">{{ tab.name }}</a>
+					<span v-bind:class="(tab.link==''?'emptylink':'link')" v-on:click="updateSelectedLink(tab.link)">{{ tab.name }}</a>
 					<div v-show="checked_id === tab.name+'_checked'">
 						Name: <input v-model="tab.name">
 						<br>
 						Link: <input v-model="tab.link">
 						<br>
 						<button v-on:click="removeTab(tab)">Remove</button>
+						<button v-on:click="moveUp(tab)">Up</button>
+						<button v-on:click="moveDown(tab)">Down</button>
 					</div>
 				</li>			
 			</ul>
 			<br>
-			<div class="borederedContainer">
+			<div class="borderedContainer">
 				<button v-on:click="addTab()">{{addActive?"Save":"Add"}}</button>
 				<br>
 				<div v-show="addActive">
