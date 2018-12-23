@@ -25,8 +25,7 @@ new Vue({
     },
 	watch: {
 	    tabs(newTabs) {
-	    	console.log("watch triggered");
-	        localStorage.tabs = JSON.stringify(newTabs);
+	    	console.log("watch triggered");	        
 	    }
 	},
 	computed: {
@@ -65,6 +64,10 @@ new Vue({
 			}
 		},
 
+		saveTabs: function() {
+			localStorage.tabs = JSON.stringify(this.tabs);
+		},
+
 		toggleExportVisibility() {
 			this.exportFieldIsVisible=!this.exportFieldIsVisible
 		},
@@ -95,6 +98,7 @@ new Vue({
 				this.tabs[index] = this.tabs[index-1];
 				this.tabs[index-1] = tmp;
 			}
+			this.$forceUpdate(); //ugly hack, have to solve it with key=item.id for iterables	
 		},
 
 		moveDown: function(tab) {
@@ -107,6 +111,7 @@ new Vue({
 				this.tabs[index] = this.tabs[index+1];
 				this.tabs[index+1] = tmp;
 			}
+			this.$forceUpdate(); //ugly hack, have to solve it with key=item.id for iterables	
 		}
 
 

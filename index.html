@@ -4,17 +4,17 @@
 	<title>DC Tabs</title>
 	<style type="text/css">
 		*{
-			margin:2px;
+			/*margin:2px;*/
 		}
 		#app{
 			width:100%;height:auto;display:flex;height:100%;
 		}
-		.li {
-			margin:5px;
+		.li {			
 			border-color: gray;
 			border-radius: 2px;
 			border: 1px;
 			color:red;
+			overflow: hidden;
 		}
 		.list {
 			/*background-color: red;*/
@@ -44,27 +44,54 @@
 		.emptylink {
 
 		}
+		.textarea {
+			width:100%; /*TODO*/
+			height: 100%;
+		}
+		.arrowsDiv {
+			float:left;
+			width:19%;
+		}
+		.songСontent {
+			float: left;
+			width:79%;
+		}
+		.songContainer {
+			border: 1px solid black;			
+			border-radius: 5px;		
+			width: 95%;
+			padding: 5px;
+			margin: 1px;
+		}
 	</style>
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 </head>
 <body>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<div id = "app">	
 		<div class = "list">
-			<ul>			
-				<li class="borderedContainer" v-for="tab in tabs">
-					<button :id="tab.name+'_checked'" v-on:click="setChecked($event)">{{(checked_id === tab.name+'_checked'?"Save":"Edit")}}</button>
-					<span v-bind:class="(tab.link==''?'emptylink':'link')" v-on:click="updateSelectedLink(tab.link)">{{ tab.name }}</a>
-					<div v-show="checked_id === tab.name+'_checked'">
-						Name: <input v-model="tab.name">
-						<br>
-						Link: <input v-model="tab.link">
-						<br>
-						<button v-on:click="removeTab(tab)">Remove</button>
-						<button v-on:click="moveUp(tab)">Up</button>
-						<button v-on:click="moveDown(tab)">Down</button>
+			<!-- <ul>			 -->
+				<div v-for="tab in tabs">
+					<div class="songContainer">
+						<div class="songСontent">	
+							<button :id="tab.name+'_checked'" v-on:click="setChecked($event)">{{(checked_id === 			tab.name+'_checked'?"Save":"Edit")}}</button>		
+							<span v-bind:class="(tab.link==''?'emptylink':'link')" v-on:click="updateSelectedLink(tab.link)">{{ tab.name }}</a>
+							<div class="editDiv" v-show="checked_id === tab.name+'_checked'">
+								Name: <input v-model="tab.name">
+								<br>
+								Link: <input v-model="tab.link">
+								<br>
+								<button v-on:click="removeTab(tab)" style="color:red">Remove</button>						
+							</div>
+						</div>
+						<div class="arrowsDiv">
+							<button v-on:click="moveUp(tab)">Λ</button>							
+							<button v-on:click="moveDown(tab)">V</button>
+						</div>
+						<div style="clear: both;"></div>
 					</div>
-				</li>			
-			</ul>
+				</div>			
+			<!-- </ul> -->
 			<br>
 			<div class="borderedContainer">
 				<button v-on:click="addTab()">{{addActive?"Save":"Add"}}</button>
@@ -75,6 +102,7 @@
 				</div>
 			</div>
 			<div class="borderedContainer">
+				<button v-on:click="saveTabs()">Save</button>
 				<button v-on:click="exportTabs()">Export</button>
 				<button v-on:click="importTabs()">Import</button>
 				<button v-on:click="toggleExportVisibility()">{{(exportFieldIsVisible?"Hide":"Show")}}</button>
