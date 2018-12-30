@@ -16,20 +16,28 @@
 			color:red;
 			overflow: hidden;
 		}
-		.list {
-			/*background-color: red;*/
+		.leftSide {
 			width:20%;
 			float: left;			
 			outline: solid 1px #000000;
 			margin: 2px;
 			padding: 5px;
-			height:100%;
+			height:"100	%";			
+		}
+		.list {
+			/*background-color: red;*/			
+			float: left;			
+			outline: solid 1px #000000;
+			margin: 2px;
+			padding: 5px;
+			height:750px;
+			overflow-y: scroll;
 		}
 		.frame {
 			/*background-color: blue;*/
 			width:80%;
 			outline: solid 1px #000000;	
-			height:1000px;
+			height:"80%";
 			margin: 2px;
 		}
 		.borderedContainer {
@@ -78,7 +86,22 @@
 <body>
 	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	<div id = "app">	
-		<div class = "list">
+		<div class = "leftSide">
+			<div id="controls">				
+				<div v-show="addActive">
+					<input placeholder="name" v-model="newTabName">
+					<input placeholder="link" v-model="newTabLink">
+				</div>				
+				<br><button v-on:click="saveTabs()">Save tabs</button>
+				<button v-on:click="addTab()">{{addActive?"Save":"Add song"}}</button>				
+				<button v-on:click="exportTabs()">Export</button>
+				<button v-on:click="importTabs()">Import</button>
+				<button v-on:click="toggleExportVisibility()">{{(exportFieldIsVisible?"Hide":"Show")}}</button>
+				<br>
+				<textarea v-show="exportFieldIsVisible===true" v-model="exportedTabs"></textarea>					
+			</div>	
+			<br>
+			<div class = "list">
 			<!-- <ul>			 -->
 				<div v-for="tab in tabs">
 					<div v-bind:class="(selectedLink === tab.link?'selectedSongContainer':'songContainer')">
@@ -99,25 +122,11 @@
 						</div>
 						<div style="clear: both;"></div>
 					</div>
-				</div>			
-			<!-- </ul> -->
-			<br>
-			<div class="borderedContainer">
-				<button v-on:click="addTab()">{{addActive?"Save":"Add"}}</button>
-				<br>
-				<div v-show="addActive">
-					<input placeholder="name" v-model="newTabName">
-					<input placeholder="link" v-model="newTabLink">
 				</div>
-			</div>
-			<div class="borderedContainer">
-				<button v-on:click="saveTabs()">Save</button>
-				<button v-on:click="exportTabs()">Export</button>
-				<button v-on:click="importTabs()">Import</button>
-				<button v-on:click="toggleExportVisibility()">{{(exportFieldIsVisible?"Hide":"Show")}}</button>
-				<br>
-				<textarea v-show="exportFieldIsVisible===true" v-model="exportedTabs"></textarea>
-			</div>
+			</div>			
+			<!-- </ul> -->
+			
+					
 		</div>
 		<div class = "frame">
 			<iframe :src="selectedLink" width="100%" height="100%"></iframe>	
