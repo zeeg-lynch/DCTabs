@@ -56,7 +56,16 @@
 			float: left;
 			width:79%;
 		}
-		.songContainer {
+		.songContainer {			
+			border: 1px solid black;			
+			border-radius: 5px;		
+			width: 95%;
+			padding: 5px;
+			margin: 1px;
+		}
+		.selectedSongContainer {
+			background-color: green;
+			color: white;
 			border: 1px solid black;			
 			border-radius: 5px;		
 			width: 95%;
@@ -72,7 +81,7 @@
 		<div class = "list">
 			<!-- <ul>			 -->
 				<div v-for="tab in tabs">
-					<div class="songContainer">
+					<div v-bind:class="(selectedLink === tab.link?'selectedSongContainer':'songContainer')">
 						<div class="songСontent">	
 							<button :id="tab.name+'_checked'" v-on:click="setChecked($event)">{{(checked_id === 			tab.name+'_checked'?"Save":"Edit")}}</button>		
 							<span v-bind:class="(tab.link==''?'emptylink':'link')" v-on:click="updateSelectedLink(tab.link)">{{ tab.name }}</a>

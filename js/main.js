@@ -2,7 +2,7 @@ new Vue({
 	el: '#app',
 	data: {
 		title: "HW",
-		selectedLink: "",
+		selectedLink: " ",
 		newTabName: "",
 		newTabLink: "",
 		tabs: [
