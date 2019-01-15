@@ -103,9 +103,10 @@
 			<br>
 			<div class = "list">
 			<!-- <ul>			 -->
-				<div v-for="tab in tabs">
+				<div v-for="(tab, index) in tabs">
 					<div v-bind:class="(selectedLink === tab.link?'selectedSongContainer':'songContainer')">
 						<div class="songСontent">	
+							{{index+1}}
 							<button :id="tab.name+'_checked'" v-on:click="setChecked($event)">{{(checked_id === 			tab.name+'_checked'?"Save":"Edit")}}</button>		
 							<span v-bind:class="(tab.link==''?'emptylink':'link')" v-on:click="updateSelectedLink(tab.link)">{{ tab.name }}</a>
 							<div class="editDiv" v-show="checked_id === tab.name+'_checked'">
